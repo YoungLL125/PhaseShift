@@ -82,6 +82,11 @@ public class Move : MonoBehaviour
         }
         
 
+        
+    }
+
+    void LateUpdate()
+    {
         // Make avatar face in same direction as camera
         transform.rotation = Quaternion.LookRotation(new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(cam.position.x, 0, cam.position.z));
     }
