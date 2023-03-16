@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
+    public float sensX;
+    public float sensY;
+    float xRotation;
+    float yRotation;
     public Transform cam;
     public Rigidbody rb;
     public float jumpHeight;
@@ -16,16 +20,35 @@ public class Move : MonoBehaviour
     private bool grounded;
     public float groundDrag;
     private bool canJump = true;
+    public Vector3 camOffset;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        // Sets cursor locked in centre of screen and invisible
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false; 
+
+        rb = GetComponent<Rigidbody>(); // Gets rigidbody component
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Get Mouse Inputs
+        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+
+        yRotation = yRotation + mouseX;
+        xRotation = xRotation - mouseY;
+
+        xRotation = Mathf.Clamp(xRotation,-90f,90f); // Prevents camera rotating past 90 degrees
+
+        // Rotate cam and player
+        cam.rotation = Quaternion.Euler(xRotation,yRotation,0);
+        transform.rotation = Quaternion.Euler(0,yRotation,0);
+        
+        
         // Check if player is on ground
         grounded = Physics.Raycast(transform.position, Vector3.down, 1.1f,1);
         if (grounded){
@@ -36,7 +59,7 @@ public class Move : MonoBehaviour
         }
 
         // Respawn avatar if falling into void below y = -50
-        if (transform.position.y <= -50f){
+        if (transform.position.y <= -200f){
             transform.position = respawnPos;
         }
             
@@ -64,7 +87,7 @@ public class Move : MonoBehaviour
 
         // Control Max Speed
         Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        if (flatVel.magnitude > speed){
+        if (flatVel.magnitude > speed && grounded){
             Vector3 limitedVel = flatVel.normalized * speed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
@@ -87,8 +110,7 @@ public class Move : MonoBehaviour
 
     void LateUpdate()
     {
-        // Make avatar face in same direction as camera
-        transform.rotation = Quaternion.LookRotation(new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(cam.position.x, 0, cam.position.z));
+        cam.position = transform.position + camOffset; // Sets camera position to player position
     }
 
     void ResetJump()
