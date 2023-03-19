@@ -8,6 +8,9 @@ public class GrapplingGun : MonoBehaviour
     private Vector3 grapplePos;
     public Transform gunTip, player, cam;
     public float maxDist;
+    public float spring;
+    public float damper;
+    public float massScale;
     private SpringJoint joint;
     // Start is called before the first frame update
     void Awake()
@@ -45,12 +48,12 @@ public class GrapplingGun : MonoBehaviour
             float distance = Vector3.Distance(player.position, grapplePos); // Distance between player and grapple point
 
             // The distance range that the grapple will try to keep within
-            joint.maxDistance = distance * 0.8f; // Max distance
+            joint.maxDistance = distance * 1f; // Max distance
             joint.minDistance = distance * 0.25f; // Min distance
 
-            joint.spring = 4.5f; // Strength of spring
-            joint.damper = 7f; // Amount that the spring is reduced when active
-            joint.massScale = 4.5f; // The player's mass multiplier
+            joint.spring = spring; // Strength of spring
+            joint.damper = damper; // Amount that the spring is reduced when active
+            joint.massScale = massScale; // The player's mass divider
 
             lr.positionCount = 2;
         }

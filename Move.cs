@@ -39,6 +39,7 @@ public class Move : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
+        // Link Mouse location to the character rotation
         yRotation = yRotation + mouseX;
         xRotation = xRotation - mouseY;
 
@@ -48,18 +49,19 @@ public class Move : MonoBehaviour
         cam.rotation = Quaternion.Euler(xRotation,yRotation,0);
         transform.rotation = Quaternion.Euler(0,yRotation,0);
         
-        
         // Check if player is on ground
-        grounded = Physics.Raycast(transform.position, Vector3.down, 1.1f,1);
+        RaycastHit hit;
+        grounded = Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hit, 0.6f, 1);
+        // grounded = Physics.Raycast(transform.position, Vector3.down, 1.1f,1);
         if (grounded){
             rb.drag = groundDrag;
         }
         else{
-            rb.drag = 0;
+            rb.drag = 0.1f;
         }
 
-        // Respawn avatar if falling into void below y = -50
-        if (transform.position.y <= -200f){
+        // Respawn avatar if falling into void below y = -100
+        if (transform.position.y <= -100f){
             transform.position = respawnPos;
         }
             
