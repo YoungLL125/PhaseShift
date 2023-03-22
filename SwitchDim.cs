@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class SwitchDim : MonoBehaviour
 {
-    // Tracks the current dimension
-    public bool state = false;
     public GameObject[] dim0;
     public GameObject[] dim1;
+    public Material day;
+    public Material night;
 
     void Start()
     {
         dim0 = GameObject.FindGameObjectsWithTag("DIM0");
         dim1 = GameObject.FindGameObjectsWithTag("DIM1");
-        SwitchOff(dim1);
-        SwitchOn(dim0);
+        SwitchOff(dim0);
+        SwitchOn(dim1);
+        RenderSettings.skybox = day;
     }
 
     // Update is called once per frame
@@ -22,20 +23,20 @@ public class SwitchDim : MonoBehaviour
     {
         // Checks if shift is pressed
         if (Input.GetButton("Shift")){
-            // Changes state
-            state = false;
             // Changes all objects in Dimension 1 to translucent
             SwitchOff(dim1);
             // Changes all objects in Dimension 0 to opaque
             SwitchOn(dim0);
+            // Changes skybox
+            RenderSettings.skybox = night;
         }
         else{
-            // Changes state
-            state = true;
             // Changes all objects in Dimension 0 to translucent
             SwitchOff(dim0);
             // Changes all objects in Dimension 1 to opaque
             SwitchOn(dim1);
+            // Changes skybox
+            RenderSettings.skybox = day;
         }
 
 
