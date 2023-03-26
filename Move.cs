@@ -12,6 +12,8 @@ public class Move : MonoBehaviour
     public Rigidbody rb;
     public float jumpHeight;
     public float speed;
+    public float walkSpeed = 10f;
+    public float sprintSpeed = 20f;
     public float airMultiplier;
     public float horizontalInput;
     public float verticalInput;
@@ -75,20 +77,30 @@ public class Move : MonoBehaviour
                 // Make avatar jump
                 rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
 
-                Invoke("ResetJump",0.4f);
+                Invoke("ResetJump",0.4f); // Run reset jump function in 0.4 seconds
             }
         }
-        
+
+        // Detect sprint (R key)
+        if (Input.GetButtonDown("R")){
+            speed = sprintSpeed; // Set max speed to sprint speed
+        }
 
         // Detect wasd
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        if (horizontalInput + verticalInput == 0){
+            speed = walkSpeed;
+        }
+
         // Make avatar move
         moveDir = transform.right * horizontalInput + transform.forward * verticalInput;
 
-        // Control Max Speed
+        // Get flat velocity
         Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+        // Control Max Speed
         if (flatVel.magnitude > speed && grounded){
             Vector3 limitedVel = flatVel.normalized * speed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
@@ -117,7 +129,7 @@ public class Move : MonoBehaviour
 
     void ResetJump()
     {
-        canJump = true;
+        canJump = true; // Reset Jump
     }
 
 }
