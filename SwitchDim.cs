@@ -13,6 +13,7 @@ public class SwitchDim : MonoBehaviour
     {
         dim0 = GameObject.FindGameObjectsWithTag("DIM0");
         dim1 = GameObject.FindGameObjectsWithTag("DIM1");
+        
         SwitchOff(dim0);
         SwitchOn(dim1);
         RenderSettings.skybox = day;

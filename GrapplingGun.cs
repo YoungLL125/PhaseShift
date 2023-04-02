@@ -12,6 +12,7 @@ public class GrapplingGun : MonoBehaviour
     public float damper;
     public float massScale;
     private SpringJoint joint;
+    private SpringJoint[] joints;
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,6 +26,12 @@ public class GrapplingGun : MonoBehaviour
             StartGrapple();
         }
         else if (Input.GetMouseButtonUp(0)){
+            StopGrapple();
+        }
+        else if (Input.GetMouseButton(0)){
+            // Double check if mouse button held down; Do nothing
+        }
+        else{
             StopGrapple();
         }
     }
@@ -61,7 +68,10 @@ public class GrapplingGun : MonoBehaviour
 
     void StopGrapple(){
         lr.positionCount = 0;
-        Destroy(joint);
+        joints = player.GetComponents<SpringJoint>();
+        foreach (SpringJoint j in joints){
+            Destroy(j);
+        }
     }
 
     void DrawRope(){
