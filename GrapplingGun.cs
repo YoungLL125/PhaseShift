@@ -55,8 +55,6 @@ public class GrapplingGun : MonoBehaviour
 
             objtag = hit.collider.gameObject.tag;
 
-            print(objtag);
-
             grapplePos = hit.point; // Stores hit location into grapplePos
             
             joint = player.gameObject.AddComponent<SpringJoint>(); // Creates a springjoint component in player gameobject
