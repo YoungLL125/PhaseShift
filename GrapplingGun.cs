@@ -32,7 +32,7 @@ public class GrapplingGun : MonoBehaviour
         else if (Input.GetMouseButtonUp(0)){
             StopGrapple();
         }
-        else if (dimScript.currentDim != objtag){
+        else if (dimScript.currentDim != objtag && objtag != "Untagged"){
             StopGrapple();
         }
         else if (Input.GetMouseButton(0)){
@@ -54,6 +54,8 @@ public class GrapplingGun : MonoBehaviour
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxDist, 1)){
 
             objtag = hit.collider.gameObject.tag;
+
+            print(objtag);
 
             grapplePos = hit.point; // Stores hit location into grapplePos
             
