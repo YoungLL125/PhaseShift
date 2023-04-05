@@ -56,7 +56,6 @@ public class Move : MonoBehaviour
         // Check if player is on ground
         RaycastHit hit;
         grounded = Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hit, 0.6f, 1);
-        // grounded = Physics.Raycast(transform.position, Vector3.down, 1.1f,1);
         if (grounded){
             rb.drag = groundDrag;
         }

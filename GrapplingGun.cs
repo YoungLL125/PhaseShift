@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GrapplingGun : MonoBehaviour
 {
+    public RaycastHit hit;
+    public string objtag;
     private LineRenderer lr;
     private Vector3 grapplePos;
     public Transform gunTip, player, cam;
@@ -13,10 +15,12 @@ public class GrapplingGun : MonoBehaviour
     public float massScale;
     private SpringJoint joint;
     private SpringJoint[] joints;
+    public SwitchDim dimScript;
     // Start is called before the first frame update
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
+        dimScript = GameObject.Find("Player").GetComponent<SwitchDim>();
     }
 
     // Update is called once per frame
@@ -26,6 +30,9 @@ public class GrapplingGun : MonoBehaviour
             StartGrapple();
         }
         else if (Input.GetMouseButtonUp(0)){
+            StopGrapple();
+        }
+        else if (dimScript.currentDim != objtag){
             StopGrapple();
         }
         else if (Input.GetMouseButton(0)){
@@ -43,11 +50,13 @@ public class GrapplingGun : MonoBehaviour
 
     void StartGrapple(){
         // Uses a springjoint component to mimick the grappling hook effect
-
-        RaycastHit hit;
         // Sends a raycast to find target location
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxDist, 1)){
+
+            objtag = hit.collider.gameObject.tag;
+
             grapplePos = hit.point; // Stores hit location into grapplePos
+            
             joint = player.gameObject.AddComponent<SpringJoint>(); // Creates a springjoint component in player gameobject
             joint.autoConfigureConnectedAnchor = false;
             joint.connectedAnchor = grapplePos; // Sets one end of the spring joint to the target location

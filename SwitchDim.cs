@@ -6,6 +6,7 @@ public class SwitchDim : MonoBehaviour
 {
     public GameObject[] dim0;
     public GameObject[] dim1;
+    public string currentDim = "DIM1";
     public Material day;
     public Material night;
 
@@ -24,6 +25,7 @@ public class SwitchDim : MonoBehaviour
     {
         // Checks if shift is pressed
         if (Input.GetButton("Shift")){
+            currentDim = "DIM0";
             // Changes all objects in Dimension 1 to translucent
             SwitchOff(dim1);
             // Changes all objects in Dimension 0 to opaque
@@ -32,6 +34,7 @@ public class SwitchDim : MonoBehaviour
             RenderSettings.skybox = night;
         }
         else{
+            currentDim = "DIM1";
             // Changes all objects in Dimension 0 to translucent
             SwitchOff(dim0);
             // Changes all objects in Dimension 1 to opaque
