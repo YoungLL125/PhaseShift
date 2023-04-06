@@ -54,24 +54,30 @@ public class GrapplingGun : MonoBehaviour
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxDist, 1)){
 
             objtag = hit.collider.gameObject.tag;
-
-            grapplePos = hit.point; // Stores hit location into grapplePos
+            print(objtag);
+            // Prevents grappling to yourself
+            if (objtag != "Player"){
+                grapplePos = hit.point; // Stores hit location into grapplePos
             
-            joint = player.gameObject.AddComponent<SpringJoint>(); // Creates a springjoint component in player gameobject
-            joint.autoConfigureConnectedAnchor = false;
-            joint.connectedAnchor = grapplePos; // Sets one end of the spring joint to the target location
+                joint = player.gameObject.AddComponent<SpringJoint>(); // Creates a springjoint component in player gameobject
+                joint.autoConfigureConnectedAnchor = false;
+                joint.connectedAnchor = grapplePos; // Sets one end of the spring joint to the target location
 
-            float distance = Vector3.Distance(player.position, grapplePos); // Distance between player and grapple point
+                float distance = Vector3.Distance(player.position, grapplePos); // Distance between player and grapple point
 
-            // The distance range that the grapple will try to keep within
-            joint.maxDistance = distance * 0.9f; // Max distance
-            joint.minDistance = distance * 0.25f; // Min distance
+                // The distance range that the grapple will try to keep within
+                joint.maxDistance = distance * 0.9f; // Max distance
+                joint.minDistance = distance * 0.25f; // Min distance
 
-            joint.spring = spring; // Strength of spring
-            joint.damper = damper; // Amount that the spring is reduced when active
-            joint.massScale = massScale; // The player's mass divider
+                joint.spring = spring; // Strength of spring
+                joint.damper = damper; // Amount that the spring is reduced when active
+                joint.massScale = massScale; // The player's mass divider
 
-            lr.positionCount = 2;
+                lr.positionCount = 2;
+            }
+            else{
+                Invoke("StartGrapple", 0.05f);
+            }
         }
     }
 
