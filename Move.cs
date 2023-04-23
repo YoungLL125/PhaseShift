@@ -11,6 +11,7 @@ public class Move : MonoBehaviour
     public Transform cam;
     public Rigidbody rb;
     public Material checkpointed;
+    public Material uncheckpointed;
     public float jumpHeight;
     public float speed;
     public float walkSpeed = 10f;
@@ -25,6 +26,7 @@ public class Move : MonoBehaviour
     private bool canJump = true;
     public Vector3 camOffset;
     public float checkpoint = 0;
+    public GameObject[] checkpointobjs;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,8 @@ public class Move : MonoBehaviour
         Cursor.visible = false; 
 
         rb = GetComponent<Rigidbody>(); // Gets rigidbody component
+
+        checkpointobjs = GameObject.FindGameObjectsWithTag("Checkpoint"); // Gets all checkpoint gameobjs
     }
 
     // Update is called once per frame
@@ -135,10 +139,14 @@ public class Move : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.name == "Checkpoint1" && checkpoint != 1){
-            checkpoint = 1;
-            other.GetComponent<Renderer>().material = checkpointed;
-            respawnPos = other.transform.position + new Vector3(0,1.5f,0);
+        if (other.tag == "Checkpoint" && checkpoint != other.name[10]){
+            // Resets colour of all checkpoints
+            foreach(GameObject obj in checkpointobjs){
+                obj.GetComponent<Renderer>().material = uncheckpointed;
+            }
+            checkpoint = other.name[10]; // The number of the checkpoint
+            other.GetComponent<Renderer>().material = checkpointed; // Changes the colour of the checkpoint
+            respawnPos = other.transform.position + new Vector3(0,1.5f,0); // Sets spawnpoint
         }
     }
 
