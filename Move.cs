@@ -87,7 +87,7 @@ public class Move : MonoBehaviour
         }
 
         // Detect sprint (R key)
-        if (Input.GetButtonDown("R")){
+        if (Input.GetButtonDown("Shift")){
             speed = sprintSpeed; // Set max speed to sprint speed
         }
 

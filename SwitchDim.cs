@@ -24,23 +24,25 @@ public class SwitchDim : MonoBehaviour
     void Update()
     {
         // Checks if shift is pressed
-        if (Input.GetButton("Shift")){
-            currentDim = "DIM0";
-            // Changes all objects in Dimension 1 to translucent
-            SwitchOff(dim1);
-            // Changes all objects in Dimension 0 to opaque
-            SwitchOn(dim0);
-            // Changes skybox
-            RenderSettings.skybox = night;
-        }
-        else{
-            currentDim = "DIM1";
-            // Changes all objects in Dimension 0 to translucent
-            SwitchOff(dim0);
-            // Changes all objects in Dimension 1 to opaque
-            SwitchOn(dim1);
-            // Changes skybox
-            RenderSettings.skybox = day;
+        if (Input.GetButtonDown("F")){
+            if (currentDim == "DIM1"){
+                currentDim = "DIM0";
+                // Changes all objects in Dimension 1 to translucent
+                SwitchOff(dim1);
+                // Changes all objects in Dimension 0 to opaque
+                SwitchOn(dim0);
+                // Changes skybox
+                RenderSettings.skybox = night;
+            }
+            else if (currentDim == "DIM0"){
+                currentDim = "DIM1";
+                // Changes all objects in Dimension 0 to translucent
+                SwitchOff(dim0);
+                // Changes all objects in Dimension 1 to opaque
+                SwitchOn(dim1);
+                // Changes skybox
+                RenderSettings.skybox = day;
+            }
         }
 
 
