@@ -32,7 +32,7 @@ public class GrapplingGun : MonoBehaviour
         else if (Input.GetMouseButtonUp(0)){
             StopGrapple();
         }
-        else if (dimScript.currentDim != objtag && objtag != "Untagged"){
+        else if (dimScript.currentDim != objtag && (objtag == "DIM0" || objtag == "DIM1")){
             StopGrapple();
         }
         else if (Input.GetMouseButton(0)){
