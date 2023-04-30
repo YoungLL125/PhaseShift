@@ -12,7 +12,7 @@ public class Move : MonoBehaviour
     public Rigidbody rb;
     public Material checkpointed;
     public Material uncheckpointed;
-    public float jumpHeight;
+    public float jumpForce;
     public float speed;
     public float walkSpeed = 10f;
     public float sprintSpeed = 20f;
@@ -72,18 +72,16 @@ public class Move : MonoBehaviour
             transform.position = respawnPos;
         }
             
-        // Detect spacebar
-        if (Input.GetButton("Jump") && canJump){
-            // Performs groundcheck with raycast
-            if (grounded){
-                canJump = false;
-                // reset y velocity
-                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                // Make avatar jump
-                rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+        // Detect spacebar, Performs groundcheck with raycast, checks for jump delay
+        if (Input.GetButton("Jump") && grounded && canJump){
+            // jump delay bool
+            canJump = false;
+            // reset y velocity
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            // Make avatar jump
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
-                Invoke("ResetJump",0.4f); // Run reset jump function in 0.4 seconds
-            }
+            Invoke("ResetJump",0.4f); // Run reset jump function in 0.4 seconds
         }
 
         // Detect sprint (R key)
