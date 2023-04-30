@@ -64,7 +64,7 @@ public class Move : MonoBehaviour
             rb.drag = groundDrag;
         }
         else{
-            rb.drag = 0.1f;
+            rb.drag = 0.1f; // Air drag
         }
 
         // Respawn avatar if falling into void below y = -100
@@ -76,16 +76,14 @@ public class Move : MonoBehaviour
         if (Input.GetButton("Jump") && grounded && canJump){
             // jump delay bool
             canJump = false;
-            // reset y velocity
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             // Make avatar jump
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
-            Invoke("ResetJump",0.4f); // Run reset jump function in 0.4 seconds
+            Invoke("ResetJump",0.1f); // Run reset jump function in 0.4 seconds
         }
 
         // Detect sprint (R key)
-        if (Input.GetButtonDown("Shift")){
+        if (Input.GetButton("Shift")){
             speed = sprintSpeed; // Set max speed to sprint speed
         }
 
