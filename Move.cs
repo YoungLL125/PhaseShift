@@ -25,7 +25,7 @@ public class Move : MonoBehaviour
     public float groundDrag;
     private bool canJump = true;
     public Vector3 camOffset;
-    public float checkpoint = 0;
+    public float checkpoint = -1;
     public GameObject[] checkpointobjs;
 
     // Start is called before the first frame update
