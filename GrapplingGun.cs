@@ -54,7 +54,7 @@ public class GrapplingGun : MonoBehaviour
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxDist, 1)){
 
             objtag = hit.collider.gameObject.tag;
-            print(objtag);
+            
             // Prevents grappling to yourself
             if (objtag != "Player"){
                 grapplePos = hit.point; // Stores hit location into grapplePos

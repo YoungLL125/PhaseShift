@@ -25,7 +25,7 @@ public class Move : MonoBehaviour
     public float groundDrag;
     private bool canJump = true;
     public Vector3 camOffset;
-    public float checkpoint = -1;
+    public string checkpoint = "0";
     public GameObject[] checkpointobjs;
 
     // Start is called before the first frame update
@@ -38,6 +38,8 @@ public class Move : MonoBehaviour
         rb = GetComponent<Rigidbody>(); // Gets rigidbody component
 
         checkpointobjs = GameObject.FindGameObjectsWithTag("Checkpoint"); // Gets all checkpoint gameobjs
+
+        checkpoint = "0"; // Initiates current checkpoint
     }
 
     // Update is called once per frame
@@ -135,12 +137,12 @@ public class Move : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Checkpoint" && checkpoint != other.name[10]){
+        if (other.tag == "Checkpoint" && checkpoint != other.name.Remove(0,10)){
             // Resets colour of all checkpoints
             foreach(GameObject obj in checkpointobjs){
                 obj.GetComponent<Renderer>().material = uncheckpointed;
             }
-            checkpoint = other.name[10]; // The number of the checkpoint
+            checkpoint = other.name.Remove(0,10); // The number of the checkpoint
             other.GetComponent<Renderer>().material = checkpointed; // Changes the colour of the checkpoint
             respawnPos = other.transform.position + new Vector3(0,1.5f,0); // Sets spawnpoint
         }
