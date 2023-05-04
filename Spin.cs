@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Spin : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float speed;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        gameObject.transform.Rotate(Vector3.up * Time.fixedDeltaTime * speed, Space.Self);
     }
 }
