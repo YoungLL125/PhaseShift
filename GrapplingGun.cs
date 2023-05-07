@@ -7,7 +7,7 @@ public class GrapplingGun : MonoBehaviour
     public RaycastHit hit;
     public string objtag;
     private LineRenderer lr;
-    private Vector3 grapplePos;
+    private Vector3 localgrapplePos;
     public Transform gunTip, player, cam;
     public float maxDist;
     public float spring;
@@ -26,20 +26,20 @@ public class GrapplingGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)){
+        if (Input.GetMouseButtonDown(0)){ // Start grapple when left click is pressed
             StartGrapple();
         }
-        else if (Input.GetMouseButtonUp(0)){
+        else if (Input.GetMouseButtonUp(0)){ // Stop grapple when left click is released
             StopGrapple();
         }
-        else if (dimScript.currentDim != objtag && (objtag == "DIM0" || objtag == "DIM1")){
+        else if ((objtag == "DIM0" || objtag == "DIM1") && objtag != dimScript.currentDim){ // Stop grapple when the object is a dimension object AND the dimension of that object does not match the current dimension
             StopGrapple();
         }
         else if (Input.GetMouseButton(0)){
             // Double check if mouse button held down; Do nothing
         }
         else{
-            StopGrapple();
+            StopGrapple(); // Stop grapple as the mouse button is not held down
         }
     }
 
@@ -53,17 +53,18 @@ public class GrapplingGun : MonoBehaviour
         // Sends a raycast to find target location
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxDist, 1)){
 
-            objtag = hit.collider.gameObject.tag;
+            objtag = hit.collider.gameObject.tag; // The object tag of the connected object
             
             // Prevents grappling to yourself
             if (objtag != "Player"){
-                grapplePos = hit.point; // Stores hit location into grapplePos
+                localgrapplePos = hit.transform.InverseTransformPoint(hit.point); // The position of the hitpoint relative to the hit object
             
                 joint = player.gameObject.AddComponent<SpringJoint>(); // Creates a springjoint component in player gameobject
                 joint.autoConfigureConnectedAnchor = false;
-                joint.connectedAnchor = grapplePos; // Sets one end of the spring joint to the target location
+                joint.connectedBody = hit.rigidbody; // Set the connected body of the joint to the rigidbody that is hit
+                joint.connectedAnchor = localgrapplePos; // Sets one end of the spring joint to the target location
 
-                float distance = Vector3.Distance(player.position, grapplePos); // Distance between player and grapple point
+                float distance = Vector3.Distance(player.position, hit.point); // Distance between player and global grapple point
 
                 // The distance range that the grapple will try to keep within
                 joint.maxDistance = distance * 0.9f; // Max distance
@@ -73,7 +74,7 @@ public class GrapplingGun : MonoBehaviour
                 joint.damper = damper; // Amount that the spring is reduced when active
                 joint.massScale = massScale; // The player's mass divider
 
-                lr.positionCount = 2;
+                lr.positionCount = 2; // two endpoints, (start, end)
             }
             else{
                 Invoke("StartGrapple", 0.05f);
@@ -82,8 +83,8 @@ public class GrapplingGun : MonoBehaviour
     }
 
     void StopGrapple(){
-        lr.positionCount = 0;
-        joints = player.GetComponents<SpringJoint>();
+        lr.positionCount = 0; // zero endpoints
+        joints = player.GetComponents<SpringJoint>(); // Destroy all springjoints
         foreach (SpringJoint j in joints){
             Destroy(j);
         }
@@ -94,7 +95,7 @@ public class GrapplingGun : MonoBehaviour
         if (!joint) return;
 
         // Sets the start and end points of the rendered line
-        lr.SetPosition(0,gunTip.position);
-        lr.SetPosition(1,grapplePos);
+        lr.SetPosition(0,gunTip.position); // Guntip position
+        lr.SetPosition(1,joint.connectedBody.transform.TransformPoint(joint.connectedAnchor)); // The global position of the connected anchor
     }
 }
