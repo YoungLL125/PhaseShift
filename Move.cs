@@ -61,7 +61,7 @@ public class Move : MonoBehaviour
         
         // Check if player is on ground
         RaycastHit hit;
-        grounded = Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hit, 0.6f, 1);
+        grounded = Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hit, 0.501f, 1);
         if (grounded){
             rb.drag = groundDrag;
         }
@@ -78,8 +78,9 @@ public class Move : MonoBehaviour
         if (Input.GetButton("Jump") && grounded && canJump){
             // jump delay bool
             canJump = false;
+            rb.velocity = new Vector3(rb.velocity.x,0f,rb.velocity.z);
             // Make avatar jump
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
 
             Invoke("ResetJump",0.1f); // Run reset jump function in 0.4 seconds
         }
@@ -97,7 +98,7 @@ public class Move : MonoBehaviour
             speed = walkSpeed;
         }
 
-        // Make avatar move
+        // Set move direction
         moveDir = transform.right * horizontalInput + transform.forward * verticalInput;
 
         // Get flat velocity

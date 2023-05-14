@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Tutorial1 : MonoBehaviour
+public class Tutorial : MonoBehaviour
 {
     public TMP_Text txt;
     public GameObject help;
