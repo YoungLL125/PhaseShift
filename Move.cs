@@ -85,7 +85,7 @@ public class Move : MonoBehaviour
             Invoke("ResetJump",0.1f); // Run reset jump function in 0.4 seconds
         }
 
-        // Detect sprint (R key)
+        // Increase max speed if sprint key (shift) is held down
         if (Input.GetButton("Shift")){
             speed = sprintSpeed; // Set max speed to sprint speed
         }
@@ -94,6 +94,7 @@ public class Move : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        // Reset Sprinting if player isn't moving
         if (horizontalInput + verticalInput == 0){
             speed = walkSpeed;
         }
