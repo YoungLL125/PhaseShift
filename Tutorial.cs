@@ -12,7 +12,7 @@ public class Tutorial : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        txt.text = "Move with WASD";
+        help.SetActive(false);
     }
 
     // Update is called once per frame
