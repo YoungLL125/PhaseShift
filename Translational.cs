@@ -26,4 +26,15 @@ public class Translational : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, waypoints[num].transform.position, Time.fixedDeltaTime * speed);
 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        other.transform.parent.SetParent(transform);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        other.transform.parent.SetParent(null);
+    }
+
 }

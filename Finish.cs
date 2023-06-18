@@ -7,7 +7,8 @@ public class Finish : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Player"){
+        print(other.gameObject.name);
+        if (other.gameObject.name == "PlayerObj"){
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
