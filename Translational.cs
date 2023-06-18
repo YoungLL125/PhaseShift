@@ -29,12 +29,12 @@ public class Translational : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        other.transform.parent.SetParent(transform);
+        other.transform.SetParent(transform);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        other.transform.parent.SetParent(null);
+        other.transform.SetParent(null);
     }
 
 }

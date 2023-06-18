@@ -11,4 +11,14 @@ public class Spin : MonoBehaviour
     {
         gameObject.transform.Rotate(Vector3.up * Time.fixedDeltaTime * speed, Space.Self);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        other.transform.SetParent(transform);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        other.transform.SetParent(null);
+    }
 }
