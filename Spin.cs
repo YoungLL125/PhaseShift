@@ -21,4 +21,5 @@ public class Spin : MonoBehaviour
     {
         other.transform.SetParent(null);
     }
+
 }
