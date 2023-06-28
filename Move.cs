@@ -19,6 +19,7 @@ public class Move : MonoBehaviour
     public float airMultiplier;
     public float horizontalInput;
     public float verticalInput;
+    public bool alive = true;
     public Vector3 respawnPos;
     public Vector3 moveDir;
     private bool grounded;
@@ -69,9 +70,9 @@ public class Move : MonoBehaviour
             rb.drag = 0.1f; // Air drag
         }
 
-        // Respawn avatar if falling into void below y = -100
+        // Respawn player if falling into void below y = -100
         if (transform.position.y <= -100f){
-            transform.position = respawnPos;
+            Die();
         }
             
         // Detect spacebar, Performs groundcheck with raycast, checks for jump delay
@@ -115,16 +116,15 @@ public class Move : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Move Player
-        if (grounded){
-            rb.AddForce(moveDir.normalized * speed * 10f, ForceMode.Acceleration);
+        if (alive == true){
+            // Move Player
+            if (grounded){
+                rb.AddForce(moveDir.normalized * speed * 10f, ForceMode.Acceleration);
+            }
+            else if (!grounded){
+                rb.AddForce(moveDir.normalized * speed * 10f * airMultiplier, ForceMode.Acceleration);
+            }
         }
-        else if (!grounded){
-            rb.AddForce(moveDir.normalized * speed * 10f * airMultiplier, ForceMode.Acceleration);
-        }
-        
-
-        
     }
 
     void LateUpdate()
@@ -137,8 +137,10 @@ public class Move : MonoBehaviour
         canJump = true; // Reset Jump
     }
 
+    // Collision detection
     void OnTriggerEnter(Collider other)
     {
+        // Checkpoint manager
         if (other.tag == "Checkpoint" && checkpoint != other.name.Remove(0,10)){
             // Resets colour of all checkpoints
             foreach(GameObject obj in checkpointobjs){
@@ -148,6 +150,18 @@ public class Move : MonoBehaviour
             other.GetComponent<Renderer>().material = checkpointed; // Changes the colour of the checkpoint
             respawnPos = other.transform.position + new Vector3(0,1.5f,0); // Sets spawnpoint
         }
+
+        // Kill Player when colliding with spikes
+        if (other.tag == "Spike"){
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        alive = false;
+        transform.position = respawnPos;
+        alive = true;
     }
 
 }
