@@ -9,5 +9,8 @@ public class LoadTime : MonoBehaviour
     void Start()
     {
         timeText.text = Stopwatch.currentTime.ToString("0.00");
+        // Enables the cursor and make it visible
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true; 
     }
 }
