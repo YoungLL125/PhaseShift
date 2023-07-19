@@ -12,7 +12,8 @@ public class LoadTotalTime : MonoBehaviour
     {
         mins = Mathf.Floor(Stopwatch.totalTime/60);
         secs = Stopwatch.totalTime % 60;
-        timeText.text = mins.ToString("00") + ":" + secs.ToString("00:00");
+        timeText.text = mins.ToString("00") + ":" + secs.ToString("00.00");
+        
         // Enables the cursor and make it visible
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true; 
