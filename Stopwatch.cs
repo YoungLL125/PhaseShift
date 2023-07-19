@@ -7,9 +7,11 @@ public class Stopwatch : MonoBehaviour
 {
     public TMP_Text timeText;
     public static float currentTime;
+    public static float totalTime;
     void Start()
     {
-        
+        totalTime += currentTime;
+        currentTime = 0f;
     }
     void Update()
     {
