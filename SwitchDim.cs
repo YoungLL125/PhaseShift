@@ -51,7 +51,11 @@ public class SwitchDim : MonoBehaviour
     void SwitchOn(GameObject[] dimension){
         // Runs through every object in the array dimension
         foreach (GameObject obj in dimension){
-            obj.GetComponent<Collider>().enabled = true; // Can interact with obj
+            // Can interact with obj
+            Collider[] colliders = obj.GetComponentsInChildren<Collider>();
+            foreach (Collider collider in colliders){
+                collider.enabled = true;
+            }
             Color col; // Sets a color variable to use
             col = obj.GetComponent<Renderer>().material.color; // Get the color of the material of the Renderer component of the obj 
             col.a = 1f; // Sets transparency to opaque (0 transparent, 1 opaque)
@@ -62,7 +66,11 @@ public class SwitchDim : MonoBehaviour
     void SwitchOff(GameObject[] dimension){
         // Runs through every object in the array dimension
         foreach (GameObject obj in dimension){
-            obj.GetComponent<Collider>().enabled = false; // Cannot interact with obj
+            // Cannot interact with obj
+            Collider[] colliders = obj.GetComponentsInChildren<Collider>();
+            foreach (Collider collider in colliders){
+                collider.enabled = false;
+            }
             Color col; // Sets a color variable to use
             col = obj.GetComponent<Renderer>().material.color; // Get the color of the material of the Renderer component of the obj
             col.a = 0.1f; // Sets to translucent
