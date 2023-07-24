@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    public float sensX;
-    public float sensY;
+    public float sensX = 100f;
+    public float sensY = 100f;
     float xRotation;
     float yRotation;
     public Transform cam;
     public Rigidbody rb;
     public Material checkpointed;
     public Material uncheckpointed;
-    public float jumpForce;
-    public float speed;
+    public float jumpForce = 20f;
+    public float speed = 20f;
     public float walkSpeed = 10f;
     public float sprintSpeed = 20f;
     public float airMultiplier;
+    public float groundDrag = 10f;
+    public float airDrag = 0.1f;
     public float horizontalInput;
     public float verticalInput;
     public bool alive = true;
     public Vector3 respawnPos;
     public Vector3 moveDir;
     private bool grounded;
-    public float groundDrag;
     private bool canJump = true;
     public Vector3 camOffset;
     public string checkpoint = "0";
@@ -67,7 +68,7 @@ public class Move : MonoBehaviour
             rb.drag = groundDrag;
         }
         else{
-            rb.drag = 0.1f; // Air drag
+            rb.drag = airDrag; // Air drag
         }
 
         // Respawn player if falling into void below y = -100

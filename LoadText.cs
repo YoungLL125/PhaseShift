@@ -28,7 +28,7 @@ public class LoadText : MonoBehaviour
             txt.text = "Weeeeee!!!";
         }
         if (lvl == "Lvl4"){
-            txt.text = "Learn to conserve your momentum";
+            txt.text = "Conserve your momentum";
         }
         if (lvl == "Lvl5"){
             txt.text = "Try not to get dizzy";
