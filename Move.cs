@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
+    public static float sensitivity = 1f;
+    public static float fov = 70f;
     public float sensX = 100f;
     public float sensY = 100f;
     float xRotation;
@@ -47,9 +49,12 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Field of View
+        Camera.main.fieldOfView = fov;
+
         // Get Mouse Inputs
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX * sensitivity;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY * sensitivity;
 
         // Link Mouse location to the character rotation
         yRotation = yRotation + mouseX;
