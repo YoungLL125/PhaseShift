@@ -54,9 +54,10 @@ public class GrapplingGun : MonoBehaviour
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxDist, 1)){
 
             objtag = hit.collider.gameObject.tag; // The object tag of the connected object
+            print(objtag);
             
             // Prevents grappling to yourself and platforms that do not exist in the same dimension
-            if (objtag != "Player" && !((objtag == "DIM0" || objtag == "DIM1") && objtag != dimScript.currentDim)){
+            if (objtag != "Player"){
                 localgrapplePos = hit.transform.InverseTransformPoint(hit.point); // The position of the hitpoint relative to the hit object
             
                 joint = player.gameObject.AddComponent<SpringJoint>(); // Creates a springjoint component in player gameobject

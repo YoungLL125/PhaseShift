@@ -15,7 +15,7 @@ public class Finish : MonoBehaviour
     {
         if (other.gameObject.name == "Player"){
             // Change to transition scene
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("Transition");
         }
     }
 }

@@ -10,6 +10,10 @@ public class LoadTotalTime : MonoBehaviour
     public float secs;
     void Start()
     {
+        // Add the time of the last level
+        Stopwatch.totalTime += Stopwatch.currentTime;
+
+        // Structure the display of time by mins,secs,milisecs
         mins = Mathf.Floor(Stopwatch.totalTime/60);
         secs = Stopwatch.totalTime % 60;
         timeText.text = mins.ToString("00") + ":" + secs.ToString("00.00");

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ButtonFunctions : MonoBehaviour
+public class ButtonsMM : MonoBehaviour
 {
     public Button startButton, settingsButton;
     void Start()
@@ -13,10 +13,11 @@ public class ButtonFunctions : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true; 
 
-        Finish.stage = 2; // Scene number of the first level
+        Finish.stage = 0; // Scene number of the first level
 
-        // Add listener to button
+        // Button Listener
         startButton.onClick.AddListener(Init);
+        settingsButton.onClick.AddListener(Settings);
     }
 
     void Init()
@@ -25,5 +26,8 @@ public class ButtonFunctions : MonoBehaviour
         SceneManager.LoadScene(Finish.stage);
     }
 
-
+    void Settings()
+    {
+        SceneManager.LoadScene("Settings");
+    }
 }
