@@ -54,7 +54,6 @@ public class GrapplingGun : MonoBehaviour
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxDist, 1)){
 
             objtag = hit.collider.gameObject.tag; // The object tag of the connected object
-            print(objtag);
             
             // Prevents grappling to yourself and platforms that do not exist in the same dimension
             if (objtag != "Player"){
