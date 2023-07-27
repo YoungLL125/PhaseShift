@@ -8,14 +8,18 @@ public class Stopwatch : MonoBehaviour
     public TMP_Text timeText;
     public static float currentTime;
     public static float totalTime;
+    public static float[] allTimes = new float[50]; // Initialise time array with 50 elements
+    public static bool timing;
     void Start()
     {
-        totalTime += currentTime;
+        timing = true;
         currentTime = 0f;
     }
     void Update()
     {
-        currentTime += Time.deltaTime;
-        timeText.text = currentTime.ToString("0.00");
+        if (timing){
+            currentTime += Time.deltaTime;
+            timeText.text = currentTime.ToString("0.00");
+        }
     }
 }

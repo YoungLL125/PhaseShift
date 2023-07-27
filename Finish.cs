@@ -15,7 +15,9 @@ public class Finish : MonoBehaviour
     {
         if (other.gameObject.name == "Player"){
             // Change to transition scene
-            SceneManager.LoadScene("Transition");
+            Stopwatch.timing = false; // Stops the stopwatch
+            Stopwatch.allTimes[stage] = Stopwatch.currentTime; // Records value in the array
+            SceneManager.LoadScene("Transition"); // Load transition scene
         }
     }
 }
