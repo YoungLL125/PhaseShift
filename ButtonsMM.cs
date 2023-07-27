@@ -17,17 +17,12 @@ public class ButtonsMM : MonoBehaviour
 
         // Button Listener
         startButton.onClick.AddListener(Init);
-        settingsButton.onClick.AddListener(Settings);
+        settingsButton.onClick.AddListener(TransitionButtons.Settings);
     }
 
     void Init()
     {
         // Load first scene (2) when start button is clicked
         SceneManager.LoadScene(Finish.stage);
-    }
-
-    void Settings()
-    {
-        SceneManager.LoadScene("Settings");
     }
 }

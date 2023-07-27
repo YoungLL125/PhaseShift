@@ -18,6 +18,6 @@ public class ButtonsSet : MonoBehaviour
     }
     void Return()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(TransitionButtons.prevScene);
     }
 }

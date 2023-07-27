@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class TransitionButtons : MonoBehaviour
 {
-    public Button continueButton, retryButton;
-    // Start is called before the first frame update
+    public Button continueButton, retryButton, settingsButton;
+    public static int prevScene; // Stores previous scene
     void Start()
     {
         continueButton.onClick.AddListener(LoadNext);
         retryButton.onClick.AddListener(Retry);
+        settingsButton.onClick.AddListener(Settings);
     }
 
     void LoadNext()
@@ -21,5 +22,10 @@ public class TransitionButtons : MonoBehaviour
     void Retry()
     {
         SceneManager.LoadScene(Finish.stage);
+    }
+    public static void Settings()
+    {
+        prevScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene("Settings");
     }
 }
