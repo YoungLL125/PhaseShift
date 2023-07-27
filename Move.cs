@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    public static float sensitivity = 1f;
+    public static float sensitivity = 2.5f;
     public static float fov = 70f;
     public float sensX = 100f;
     public float sensY = 100f;

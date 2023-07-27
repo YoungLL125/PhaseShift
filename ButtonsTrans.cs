@@ -23,7 +23,7 @@ public class ButtonsTrans : MonoBehaviour
     {
         SceneManager.LoadScene(Finish.stage);
     }
-    public static void Settings()
+    public static void Settings() // Global function for every instance when entering settings
     {
         prevScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene("Settings");
