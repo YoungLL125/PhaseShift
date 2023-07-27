@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class TransitionButtons : MonoBehaviour
+public class ButtonsTrans : MonoBehaviour
 {
     public Button continueButton, retryButton, settingsButton;
     public static int prevScene; // Stores previous scene

@@ -17,7 +17,7 @@ public class ButtonsMM : MonoBehaviour
 
         // Button Listener
         startButton.onClick.AddListener(Init);
-        settingsButton.onClick.AddListener(TransitionButtons.Settings);
+        settingsButton.onClick.AddListener(ButtonsTrans.Settings);
     }
 
     void Init()
