@@ -28,6 +28,6 @@ public class ButtonsSet : MonoBehaviour
         Move.fov = FovSlider.value;
 
         // Load previous scene
-        SceneManager.LoadScene(ButtonsTrans.prevScene);
+        SceneManager.UnloadSceneAsync("Settings");
     }
 }
