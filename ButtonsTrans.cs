@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class ButtonsTrans : MonoBehaviour
 {
     public Button continueButton, retryButton, settingsButton;
-    public static int prevScene; // Stores previous scene
     void Start()
     {
         continueButton.onClick.AddListener(LoadNext);
