@@ -13,7 +13,7 @@ public class ButtonsMM : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true; 
 
-        Finish.stage = 0; // Scene number of the first level
+        Finish.stage = 1; // Scene number of the first level
 
         // Button Listener
         startButton.onClick.AddListener(Init);
